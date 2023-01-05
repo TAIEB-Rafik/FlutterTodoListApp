@@ -5,10 +5,16 @@ import 'package:to_do_list/widgets/todo_item.dart';
 import '../widgets/build_appBar.dart';
 import '../widgets/searchbox.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   Home({Key? key}) : super(key: key);
 
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
   final todosList = ToDo.todoList();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,6 +41,8 @@ class Home extends StatelessWidget {
                         for (ToDo todoo in todosList)
                           ToDoItem(
                             todo: todoo,
+                            onToDoChanged: handleToDoChange,
+                            onDeleteItem: () {},
                           ),
                       ],
                     ),
@@ -47,11 +55,35 @@ class Home extends StatelessWidget {
               child: Row(
                 children: [
                   AddTask(),
+                  AddTaskButton(),
                 ],
               ),
             )
           ],
         ));
+  }
+
+  void handleToDoChange(ToDo todo) {
+    setState(() {
+      todo.isDone = !todo.isDone;
+    });
+  }
+
+  Container AddTaskButton() {
+    return Container(
+      margin: EdgeInsets.only(bottom: 20, right: 20),
+      child: ElevatedButton(
+        child: Text(
+          "+",
+          style: TextStyle(fontSize: 40),
+        ),
+        onPressed: () {
+          print("clicked on +");
+        },
+        style: ElevatedButton.styleFrom(
+            primary: tdBlue, minimumSize: Size(60, 60), elevation: 10),
+      ),
+    );
   }
 
   Expanded AddTask() {
