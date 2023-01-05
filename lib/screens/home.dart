@@ -14,6 +14,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final todosList = ToDo.todoList();
+  final todoController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -75,6 +76,15 @@ class _HomeState extends State<Home> {
     });
   }
 
+  void addToDoItem(String toDo) {
+    setState(() {
+      todosList.add(ToDo(
+          id: DateTime.now().millisecondsSinceEpoch.toString(),
+          todoText: toDo));
+    });
+    todoController.clear();
+  }
+
   Container AddTaskButton() {
     return Container(
       margin: EdgeInsets.only(bottom: 20, right: 20),
@@ -85,6 +95,7 @@ class _HomeState extends State<Home> {
         ),
         onPressed: () {
           print("clicked on +");
+          addToDoItem(todoController.text);
         },
         style: ElevatedButton.styleFrom(
             primary: tdBlue, minimumSize: Size(60, 60), elevation: 10),
@@ -109,6 +120,7 @@ class _HomeState extends State<Home> {
             ],
             borderRadius: BorderRadius.circular(10)),
         child: TextField(
+          controller: todoController,
           decoration: InputDecoration(
             hintText: "Ajouter une tache",
             border: InputBorder.none,
