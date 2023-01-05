@@ -39,22 +39,23 @@ class ToDoItem extends StatelessWidget {
       ),
     );
   }
-}
 
-Widget delete_to_do() {
-  return Container(
-    padding: EdgeInsets.all(0),
-    margin: EdgeInsets.symmetric(vertical: 12),
-    width: 35,
-    decoration:
-        BoxDecoration(color: tdRed, borderRadius: BorderRadius.circular(10)),
-    child: IconButton(
-      color: Colors.white,
-      iconSize: 18,
-      icon: Icon(Icons.delete),
-      onPressed: () {
-        print("delete clicked !.");
-      },
-    ),
-  );
+  Widget delete_to_do() {
+    return Container(
+      padding: EdgeInsets.all(0),
+      margin: EdgeInsets.symmetric(vertical: 12),
+      width: 35,
+      decoration:
+          BoxDecoration(color: tdRed, borderRadius: BorderRadius.circular(10)),
+      child: IconButton(
+        color: Colors.white,
+        iconSize: 18,
+        icon: Icon(Icons.delete),
+        onPressed: () {
+          print("delete clicked !.");
+          onDeleteItem(todo.id);
+        },
+      ),
+    );
+  }
 }
